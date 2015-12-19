@@ -16,11 +16,15 @@ class DevelopmentModeControllerFactory
 
         if ($services->has('ApplicationConfig')) {
             $config = $services->get('ApplicationConfig');
-            if (isset($config['cache_dir']) && ! empty($config['cache_dir'])) {
-                $configCacheDir = $config['cache_dir'];
+            if (isset($config['module_listener_options']['cache_dir'])
+                 && !empty($config['module_listener_options']['cache_dir'])
+            ) {
+                $configCacheDir = $config['module_listener_options']['cache_dir'];
             }
-            if (isset($config['config_cache_key']) && ! empty($config['config_cache_key'])) {
-                $configCacheKey = $config['config_cache_key'];
+            if (isset($config['module_listener_options']['config_cache_key'])
+                && !empty($config['module_listener_options']['config_cache_key'])
+            ) {
+                $configCacheKey = $config['module_listener_options']['config_cache_key'];
             }
         }
 
