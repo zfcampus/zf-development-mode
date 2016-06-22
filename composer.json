@@ -1,47 +1,49 @@
 {
     "name": "zfcampus/zf-development-mode",
-    "description": "ZF2 development mode module",
+    "description": "Zend Framework development mode script",
     "keywords": [
-        "framework", "zf2"
+        "framework",
+        "zf2"
     ],
     "homepage": "http://github.com/zfcampus/zf-development-mode",
     "type": "library",
     "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Ralph Schindler",
-            "email": "ralph.s@zend.com",
-            "homepage": "http://framework.zend.com"
-        },
-        {
-            "name": "Rob Allen",
-            "email": "rob@19ft.com",
-            "homepage": "http://19ft.com"
-        }
-    ],
-    "autoload": {
-        "classmap": [
-            "./Module.php",
-            "./DevelopmentModeController.php",
-            "./DevelopmentModeControllerFactory.php"
-        ]
-    },
     "extra": {
         "branch-alias": {
             "dev-master": "2.1-dev",
-            "dev-develop": "2.2-dev"
+            "dev-develop": "3.0-dev"
         }
     },
+    "bin": [
+        "bin/zf-development-mode"
+    ],
     "require": {
-        "php": ">=5.5",
-        "zendframework/zend-console": "^2.2.2",
-        "zendframework/zend-mvc": "^2.2.2"
+        "php": "^5.6 || ^7.0"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^2.3.1"
+        "squizlabs/php_codesniffer": "^2.3.1",
+        "phpunit/phpunit": "^5.4",
+        "mikey179/vfsStream": "^1.6"
     },
-    "suggest": {
-        "zendframework/zend-developer-tools": "dev-master",
-        "zendframework/zend-tool": "dev-master"
+    "autoload": {
+        "psr-4": {
+            "ZF\\DevelopmentMode\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZFTest\\DevelopmentMode\\": "test/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs",
+            "@test"
+        ],
+        "coveralls": "coveralls",
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-clover clover.xml"
     }
 }

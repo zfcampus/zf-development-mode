@@ -14,8 +14,8 @@ developer mailing list and/or in IRC.
 If you wish to contribute to Apigility modules, please be sure to
 read/subscribe to the following resources:
 
- -  [Coding Standards](https://github.com/zendframework/zf2/wiki/Coding-Standards)
- -  [ZF Git Guide](https://github.com/zendframework/zf2/blob/master/README-GIT.md)
+ -  [Coding Standards](https://github.com/zendframework/zendframework/wiki/Coding-Standards)
+ -  [ZF Git Guide](https://github.com/zendframework/zendframework/blob/master/README-GIT.md)
  -  [Apigility developer mailing list](http://bit.ly/apigility-dev)
  -  Apigility developer IRC channel: #apigility-dev on Freenode.net
 
@@ -44,31 +44,54 @@ For sensitive email communications, please use
 
 ## RUNNING TESTS
 
-First, use [Composer](https://getcomposer.org) to install all dependencies:
+To run tests:
 
-```console
-$ composer install
-```
+- Clone the repository:
 
-To run tests, use the PHPUnit executable installed by Composer:
+  ```bash
+  $ git clone git@github.com:zfcampus/zf-development-mode.git
+  $ cd zf-development-mode
+  ```
 
-```console
-$ ./vendor/bin/phpunit
-```
+- Install dependencies via composer:
+
+  ```bash
+  $ curl -sS https://getcomposer.org/installer | php --
+  $ ./composer.phar install
+  ```
+
+  If you don't have `curl` installed, you can also download `composer.phar` from https://getcomposer.org/
+
+- Run the tests using the "test" command shipped in the `composer.json`:
+
+  ```console
+  $ composer test
+  ```
+
+You can turn on conditional tests with the `phpunit.xml` file.
+To do so:
+
+ -  Copy `phpunit.xml.dist` file to `phpunit.xml`
+ -  Edit `phpunit.xml` to enable any specific functionality you
+    want to test, as well as to provide test values to utilize.
 
 ## CODING STANDARDS
 
-While Apigility uses Zend Framework 2 coding standards, in practice, we check
-standards using [php-cs-fixer](https://github.com/fabpot/PHP-CS-Fixer) (which is
-installed via Composer with other dependencies). To check for CS issues:
+First, ensure you've installed dependencies via composer, per the previous
+section on running tests.
+
+To run CS checks only:
 
 ```console
-$ ./vendor/bin/php-cs-fixer fix . --dry-run
+$ composer cs
 ```
 
-This will report CS issues. Alternately, you can have the tool fix them for you
-by omitting the `--dry-run` switch:
+To attempt to automatically fix common CS issues:
+
 
 ```console
-$ ./vendor/bin/php-cs-fixer fix .
+$ composer cs-fix
 ```
+
+If the above fixes any CS issues, please re-run the tests to ensure
+they pass, and make sure you add and commit the changes after verification.

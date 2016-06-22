@@ -16,6 +16,9 @@
     </rule>
 
     <!-- Paths to check -->
-    <file>.</file>
-    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <file>./src</file>
+    <file>./test</file>
+    <file>./bin/zf-development-mode</file>
+    <file>./development.config.php.dist</file>
+    <file>./development.local.php.dist</file>
 </ruleset>

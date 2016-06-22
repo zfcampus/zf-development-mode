@@ -1,15 +1,13 @@
 <?php
 
-return array(
+return [
     // Development time modules
-    'modules' => array(
-        'ZFTool',
-        'ZendDeveloperTools',
-    ),
+    'modules' => [
+    ],
 
-    'module_listener_options' => array(
+    'module_listener_options' => [
         // Turn off caching
         'config_cache_enabled'     => false,
         'module_map_cache_enabled' => false,
-    ),
-);
+    ],
+];

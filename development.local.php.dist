@@ -1,8 +1,7 @@
 <?php
 
-return array(
-    'view_manager' => array(
+return [
+    'view_manager' => [
         'display_exceptions' => true,
-    )
-);
-
+    ]
+];
