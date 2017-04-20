@@ -126,7 +126,7 @@ trait ConfigDiscoveryTrait
             ? sprintf('%s/%s', $this->projectDir, $this->applicationConfigPath)
             : $this->applicationConfigPath;
 
-        $configFile = file_exists($configFile) ? $configFile : $this->expressiveConfigPath;
+        $configFile = file_exists($configFile) ? $configFile : sprintf('%s/%s', $this->projectDir, $this->expressiveConfigPath);
 
         if (! file_exists($configFile)) {
             $this->applicationConfig = [];
