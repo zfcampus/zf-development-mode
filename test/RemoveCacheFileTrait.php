@@ -26,9 +26,9 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url($this->projectDirName) . '/config/application.config.php', $config);
+        file_put_contents(vfsStream::url($this->projectDirName . '/config/application.config.php'), $config);
         file_put_contents(
-            vfsStream::url($this->projectDirName) . '/cache/module-config-cache.php',
+            vfsStream::url($this->projectDirName . '/cache/module-config-cache.php'),
             '<' . "?php\nreturn [];"
         );
     }
@@ -46,7 +46,7 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url($this->projectDirName) . '/config/application.config.php', $config);
+        file_put_contents(vfsStream::url($this->projectDirName . '/config/application.config.php'), $config);
         file_put_contents(
             vfsStream::url($this->projectDirName) . '/cache/module-config-cache.custom.php',
             '<' . "?php\nreturn [];"
@@ -55,7 +55,7 @@ EOC;
 
     public function setUpDefaultExpressiveCacheFile()
     {
-        $cache = vfsStream::url($this->projectDirName) . '/data/config-cache.php';
+        $cache = vfsStream::url($this->projectDirName . '/data/config-cache.php');
         $config = <<< EOC
 <?php
 return [
@@ -63,7 +63,7 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url($this->projectDirName) . '/config/application.config.php', $config);
+        file_put_contents(vfsStream::url($this->projectDirName . '/config/application.config.php'), $config);
         file_put_contents($cache, '<' . "?php\nreturn [];");
     }
 }
