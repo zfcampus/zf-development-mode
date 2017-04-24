@@ -45,7 +45,7 @@ class Enable
      */
     public function __invoke()
     {
-        $develConfig = $this->projectDir
+        $develConfig = (isset($this->projectDir) && ! empty($projectDir))
             ? sprintf('%s/%s', $this->projectDir, self::DEVEL_CONFIG)
             : self::DEVEL_CONFIG;
         if (file_exists($develConfig)) {
@@ -54,7 +54,7 @@ class Enable
             return 0;
         }
 
-        $develConfigDist = $this->projectDir
+        $develConfigDist = (isset($this->projectDir) && ! empty($projectDir))
             ? sprintf('%s/%s', $this->projectDir, self::DEVEL_CONFIG_DIST)
             : self::DEVEL_CONFIG_DIST;
         if (! file_exists($develConfigDist)) {
@@ -74,12 +74,12 @@ class Enable
 
         copy($develConfigDist, $develConfig);
 
-        $develLocalDist = $this->projectDir
+        $develLocalDist = (isset($this->projectDir) && ! empty($projectDir))
             ? sprintf('%s/%s', $this->projectDir, self::DEVEL_LOCAL_DIST)
             : self::DEVEL_LOCAL_DIST;
         if (file_exists($develLocalDist)) {
             // optional application config override
-            $develLocal = $this->projectDir
+            $develLocal = (isset($this->projectDir) && ! empty($projectDir))
                 ? sprintf('%s/%s', $this->projectDir, self::DEVEL_LOCAL)
                 : self::DEVEL_LOCAL;
             copy($develLocalDist, $develLocal);
