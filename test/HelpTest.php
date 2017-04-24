@@ -7,7 +7,7 @@
 
 namespace ZFTest\DevelopmentMode;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ZF\DevelopmentMode\Help;
 
 class HelpTest extends TestCase

@@ -23,8 +23,8 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url('project/config/application.config.php'), $config);
-        file_put_contents(vfsStream::url('project/cache/module-config-cache.php'), '<' . "?php\nreturn [];");
+        file_put_contents(vfsStream::url('project') . '/config/application.config.php', $config);
+        file_put_contents(vfsStream::url('project') . '/cache/module-config-cache.php', '<' . "?php\nreturn [];");
     }
 
     public function setUpCustomCacheFile()
@@ -40,13 +40,13 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url('project/config/application.config.php'), $config);
-        file_put_contents(vfsStream::url('project/cache/module-config-cache.custom.php'), '<' . "?php\nreturn [];");
+        file_put_contents(vfsStream::url('project') . '/config/application.config.php', $config);
+        file_put_contents(vfsStream::url('project') . '/cache/module-config-cache.custom.php', '<' . "?php\nreturn [];");
     }
 
     public function setUpDefaultExpressiveCacheFile()
     {
-        $cache = vfsStream::url('project/data/config-cache.php');
+        $cache = vfsStream::url('project') . '/data/config-cache.php';
         $config = <<< EOC
 <?php
 return [
@@ -54,7 +54,7 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url('project/config/application.config.php'), $config);
+        file_put_contents(vfsStream::url('project') . '/config/application.config.php', $config);
         file_put_contents($cache, '<' . "?php\nreturn [];");
     }
 }

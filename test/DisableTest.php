@@ -9,7 +9,7 @@ namespace ZFTest\DevelopmentMode;
 
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamContainer;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ZF\DevelopmentMode\Disable;
 
 class DisableTest extends TestCase
@@ -63,7 +63,7 @@ class DisableTest extends TestCase
 
     public function testRaisesErrorMessageIfApplicationConfigDoesNotReturnAnArrayDevelopmentModeIsNotDisabled()
     {
-        file_put_contents(vfsStream::url('project/config/development.config.php'), $this->configStub);
+        file_put_contents(vfsStream::url('project') . '/config/development.config.php', $this->configStub);
         vfsStream::newFile('config/application.config.php')
             ->at($this->projectDir)
             ->setContent('');
@@ -84,9 +84,9 @@ class DisableTest extends TestCase
 
     public function testWillRemoveLocalAutoloadDistConfigIfPresent()
     {
-        file_put_contents(vfsStream::url('project/config/development.config.php'), $this->configStub);
-        file_put_contents(vfsStream::url('project/config/autoload/development.local.php'), $this->configStub);
-        file_put_contents(vfsStream::url('project/config/application.config.php'), $this->configStub);
+        file_put_contents(vfsStream::url('project') . '/config/development.config.php', $this->configStub);
+        file_put_contents(vfsStream::url('project') . '/config/autoload/development.local.php', $this->configStub);
+        file_put_contents(vfsStream::url('project') . '/config/application.config.php', $this->configStub);
         $command = $this->command;
 
         $this->expectOutputString('Development mode is now disabled.' . PHP_EOL);
@@ -97,25 +97,25 @@ class DisableTest extends TestCase
             'Did not get expected return value from invoking disable; errors: ' . $this->readErrorStream()
         );
         $this->assertFalse(
-            file_exists(vfsStream::url('project/config/development.config.php')),
+            file_exists(vfsStream::url('project') . '/config/development.config.php'),
             'Distribution development config was not removed'
         );
         $this->assertFalse(
-            file_exists(vfsStream::url('project/config/autoload/development.local.php')),
+            file_exists(vfsStream::url('project') . '/config/autoload/development.local.php'),
             'Distribution development local config was not removed'
         );
     }
 
     public function testRemovesDefaultConfigCacheFileIfPresent()
     {
-        file_put_contents(vfsStream::url('project/config/development.config.php'), $this->configStub);
+        file_put_contents(vfsStream::url('project') . '/config/development.config.php', $this->configStub);
         $this->setUpDefaultCacheFile();
         $command = $this->command;
 
         $this->expectOutputString('Development mode is now disabled.' . PHP_EOL);
         $this->assertSame(0, $command(), 'Did not get expected return value from invoking disable');
         $this->assertFalse(
-            file_exists(vfsStream::url('project/config/development.config.php')),
+            file_exists(vfsStream::url('project') . '/config/development.config.php'),
             'Distribution development config was not removed'
         );
         $this->assertFalse(
@@ -126,14 +126,14 @@ class DisableTest extends TestCase
 
     public function testRemovesCustomConfigCacheFileIfPresent()
     {
-        file_put_contents(vfsStream::url('project/config/development.config.php'), $this->configStub);
+        file_put_contents(vfsStream::url('project') . '/config/development.config.php', $this->configStub);
         $this->setUpCustomCacheFile();
         $command = $this->command;
 
         $this->expectOutputString('Development mode is now disabled.' . PHP_EOL);
         $this->assertSame(0, $command(), 'Did not get expected return value from invoking disable');
         $this->assertFalse(
-            file_exists(vfsStream::url('project/config/development.config.php')),
+            file_exists(vfsStream::url('project') . '/config/development.config.php'),
             'Distribution development config was not removed'
         );
         $this->assertFalse(
@@ -144,13 +144,13 @@ class DisableTest extends TestCase
 
     public function testDevelopmentModeDisabledWhenApplicationConfigNotFound()
     {
-        file_put_contents(vfsStream::url('project/config/development.config.php'), $this->configStub);
+        file_put_contents(vfsStream::url('project') . '/config/development.config.php', $this->configStub);
         $command = $this->command;
 
         $this->expectOutputString('Development mode is now disabled.' . PHP_EOL);
         $this->assertSame(0, $command(), 'Did not get expected return value from invoking disable');
         $this->assertFalse(
-            file_exists(vfsStream::url('project/config/development.config.php')),
+            file_exists(vfsStream::url('project') . '/config/development.config.php'),
             'Distribution development config was not removed'
         );
     }
