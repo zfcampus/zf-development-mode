@@ -16,6 +16,9 @@ class EnableTest extends TestCase
 {
     use RemoveCacheFileTrait;
 
+    /** @var string */
+    private $projectDirName = 'project';
+
     /** @var vfsStreamContainer */
     private $projectDir;
 
@@ -27,7 +30,7 @@ class EnableTest extends TestCase
 
     public function setUp()
     {
-        $this->projectDir = vfsStream::setup('project', null, [
+        $this->projectDir = vfsStream::setup($this->projectDirName, null, [
             'config' => [
                 'autoload' => [],
             ],
@@ -35,7 +38,7 @@ class EnableTest extends TestCase
             'data' => [],
         ]);
         $this->errorStream = fopen('php://memory', 'w+');
-        $this->command = new Enable(vfsStream::url('project'), $this->errorStream);
+        $this->command = new Enable(vfsStream::url($this->projectDirName), $this->errorStream);
     }
 
     public function tearDown()
@@ -83,7 +86,7 @@ class EnableTest extends TestCase
         $command = $this->command;
         $this->assertSame(1, $command(), 'Did not get expected return value from invoking enable');
         $this->assertFalse(
-            file_exists(vfsStream::url('project') . '/config/development.config.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/config/development.config.php'),
             'Distribution development config was copied to new file'
         );
 
@@ -116,11 +119,11 @@ class EnableTest extends TestCase
             'Did not get expected return value from invoking enable; errors: ' . $this->readErrorStream()
         );
         $this->assertTrue(
-            file_exists(vfsStream::url('project') . '/config/development.config.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/config/development.config.php'),
             'Distribution development config was not copied to new file'
         );
         $this->assertTrue(
-            file_exists(vfsStream::url('project') . '/config/autoload/development.local.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/config/autoload/development.local.php'),
             'Distribution development local config was not copied to new file'
         );
     }
@@ -136,11 +139,11 @@ class EnableTest extends TestCase
         $this->expectOutputString('You are now in development mode.' . PHP_EOL);
         $this->assertSame(0, $command(), 'Did not get expected return value from invoking enable');
         $this->assertTrue(
-            file_exists(vfsStream::url('project') . '/config/development.config.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/config/development.config.php'),
             'Distribution development config was not copied to new file'
         );
         $this->assertFalse(
-            file_exists(vfsStream::url('project') . '/cache/module-config-cache.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/cache/module-config-cache.php'),
             'Config cache file was not removed'
         );
     }
@@ -156,11 +159,11 @@ class EnableTest extends TestCase
         $this->expectOutputString('You are now in development mode.' . PHP_EOL);
         $this->assertSame(0, $command(), 'Did not get expected return value from invoking enable');
         $this->assertTrue(
-            file_exists(vfsStream::url('project') . '/config/development.config.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/config/development.config.php'),
             'Distribution development config was not copied to new file'
         );
         $this->assertFalse(
-            file_exists(vfsStream::url('project') . '/cache/module-config-cache.custom.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/cache/module-config-cache.custom.php'),
             'Config cache file was not removed'
         );
     }
@@ -175,7 +178,7 @@ class EnableTest extends TestCase
         $this->expectOutputString('You are now in development mode.' . PHP_EOL);
         $this->assertSame(0, $command(), 'Did not get expected return value from invoking enable');
         $this->assertTrue(
-            file_exists(vfsStream::url('project') . '/config/development.config.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/config/development.config.php'),
             'Distribution development config was not copied to new file'
         );
     }
@@ -191,11 +194,11 @@ class EnableTest extends TestCase
         $this->expectOutputString('You are now in development mode.' . PHP_EOL);
         $this->assertSame(0, $command(), 'Did not get expected return value from invoking enable');
         $this->assertTrue(
-            file_exists(vfsStream::url('project') . '/config/development.config.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/config/development.config.php'),
             'Distribution development config was not copied to new file'
         );
         $this->assertFalse(
-            file_exists(vfsStream::url('project') . '/data/config-cache.php'),
+            file_exists(vfsStream::url($this->projectDirName) . '/data/config-cache.php'),
             'Config cache file was not removed'
         );
     }

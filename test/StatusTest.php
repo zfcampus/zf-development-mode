@@ -14,19 +14,22 @@ use ZF\DevelopmentMode\Status;
 
 class StatusTest extends TestCase
 {
+    /** @var string */
+    private $projectDirName = 'project';
+
     /** @var vfsStreamContainer */
     private $projectDir;
 
     public function setUp()
     {
-        $this->projectDir = vfsStream::setup('project');
+        $this->projectDir = vfsStream::setup($this->projectDirName);
     }
 
     public function testIndicatesEnabledWhenDevelopmentConfigFileFound()
     {
         vfsStream::newFile(Status::DEVEL_CONFIG)
             ->at($this->projectDir);
-        $status = new Status(vfsStream::url('project'));
+        $status = new Status(vfsStream::url($this->projectDirName));
         ob_start();
         $status();
         $output = ob_get_clean();

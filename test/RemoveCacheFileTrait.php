@@ -11,9 +11,12 @@ use org\bovigo\vfs\vfsStream;
 
 trait RemoveCacheFileTrait
 {
+    /** @var string */
+    private $projectDirName = 'project';
+
     public function setUpDefaultCacheFile()
     {
-        $base = vfsStream::url('project');
+        $base = vfsStream::url($this->projectDirName);
         $config = <<< EOC
 <?php
 return [
@@ -23,13 +26,16 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url('project') . '/config/application.config.php', $config);
-        file_put_contents(vfsStream::url('project') . '/cache/module-config-cache.php', '<' . "?php\nreturn [];");
+        file_put_contents(vfsStream::url($this->projectDirName) . '/config/application.config.php', $config);
+        file_put_contents(
+            vfsStream::url($this->projectDirName) . '/cache/module-config-cache.php',
+            '<' . "?php\nreturn [];"
+        );
     }
 
     public function setUpCustomCacheFile()
     {
-        $base = vfsStream::url('project');
+        $base = vfsStream::url($this->projectDirName);
         $config = <<< EOC
 <?php
 return [
@@ -40,16 +46,16 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url('project') . '/config/application.config.php', $config);
+        file_put_contents(vfsStream::url($this->projectDirName) . '/config/application.config.php', $config);
         file_put_contents(
-            vfsStream::url('project') . '/cache/module-config-cache.custom.php',
+            vfsStream::url($this->projectDirName) . '/cache/module-config-cache.custom.php',
             '<' . "?php\nreturn [];"
         );
     }
 
     public function setUpDefaultExpressiveCacheFile()
     {
-        $cache = vfsStream::url('project') . '/data/config-cache.php';
+        $cache = vfsStream::url($this->projectDirName) . '/data/config-cache.php';
         $config = <<< EOC
 <?php
 return [
@@ -57,7 +63,7 @@ return [
 ];
 EOC;
 
-        file_put_contents(vfsStream::url('project') . '/config/application.config.php', $config);
+        file_put_contents(vfsStream::url($this->projectDirName) . '/config/application.config.php', $config);
         file_put_contents($cache, '<' . "?php\nreturn [];");
     }
 }
