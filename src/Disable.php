@@ -43,7 +43,7 @@ class Disable
      */
     public function __invoke()
     {
-        $develConfig = (isset($this->projectDir) && ! empty($projectDir))
+        $develConfig = (isset($this->projectDir) && ! empty($this->projectDir))
             ? sprintf('%s/%s', $this->projectDir, self::DEVEL_CONFIG)
             : self::DEVEL_CONFIG;
         if (! file_exists($develConfig)) {
@@ -59,7 +59,7 @@ class Disable
             return 1;
         }
 
-        $develLocalConfig = (isset($this->projectDir) && ! empty($projectDir))
+        $develLocalConfig = (isset($this->projectDir) && ! empty($this->projectDir))
             ? sprintf('%s/%s', $this->projectDir, self::DEVEL_LOCAL)
             : self::DEVEL_LOCAL;
         if (file_exists($develLocalConfig)) {
