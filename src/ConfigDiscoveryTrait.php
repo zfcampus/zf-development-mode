@@ -122,11 +122,15 @@ trait ConfigDiscoveryTrait
             return $this->applicationConfig;
         }
 
-        $configFile = isset($this->projectDir)
+        $configFile = (isset($this->projectDir) && ! empty($this->projectDir))
             ? sprintf('%s/%s', $this->projectDir, $this->applicationConfigPath)
             : $this->applicationConfigPath;
 
-        $configFile = file_exists($configFile) ? $configFile : $this->expressiveConfigPath;
+        if (! file_exists($configFile)) {
+            $configFile = (isset($this->projectDir) && ! empty($this->projectDir))
+                ? sprintf('%s/%s', $this->projectDir, $this->expressiveConfigPath)
+                : $this->expressiveConfigPath;
+        }
 
         if (! file_exists($configFile)) {
             $this->applicationConfig = [];
