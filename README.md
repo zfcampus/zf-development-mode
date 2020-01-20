@@ -2,7 +2,7 @@
 
 > ## Repository abandoned 2019-12-31
 >
-> This repository has moved to laminas/laminas-development-mode.
+> This repository has moved to [laminas/laminas-development-mode](https://github.com/laminas/laminas-development-mode).
 
 [![Build Status](https://secure.travis-ci.org/zfcampus/zf-development-mode.svg?branch=master)](https://secure.travis-ci.org/zfcampus/zf-development-mode)
 [![Coverage Status](https://coveralls.io/repos/github/zfcampus/zf-development-mode/badge.svg?branch=master)](https://coveralls.io/github/zfcampus/zf-development-mode?branch=master)
